@@ -29,13 +29,16 @@ if ( !function_exists('get_template_module') ):
  * @return string The file path to the loaded file. The empty string if no file was found.
  */
 function get_template_module( $module ) {
+
   $template_hierarchy = get_template_hierarchy();
+
+  if ( empty( $template_hierarchy ) )
+    return '';
 
   $templates = array();
   foreach( $template_hierarchy as $template ) {
     $templates[] = $module . '/' . $template;
   }
-  $templates[] = $module . '.php';
 
   $located = locate_template($templates, true, false);
   return $located;
